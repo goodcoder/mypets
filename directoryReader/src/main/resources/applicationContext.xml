@@ -1,0 +1,22 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+ 
+ 
+    <context:component-scan base-package=" com.ons.directoryreader" />
+    <!-- <context:annotation-config/> is subset of  <context:component-scan/>-->
+
+    <bean id="directoryReader" class="com.ons.directoryreader.DirectoryReader"  scope = "prototype"  autowire="byName" >
+   		 <constructor-arg value="0"/>
+    </bean> 
+    
+    <!-- No need as COmponent scan is used
+    <bean id="fileSorter" class="com.ons.directoryreader.files.impls.FileSorter"  autowire="byName" />
+    
+    <bean id="filePrinter" class="com.ons.directoryreader.files.impls.FilePrinter"  autowire="byName" /> -->
+  
+</beans>

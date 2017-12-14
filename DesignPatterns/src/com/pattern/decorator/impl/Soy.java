@@ -16,12 +16,18 @@ public class Soy extends CondimentDecorator {
 	
 	@Override
 	public double cost() {
-		return .15 + beverage.cost();
+		double cost = beverage.cost();
+		double condCost = calculateCondimentCost();  // Extra functionality AFTER delegating to Decorated object method
+		//someAdditionalFunctionality();  // Extra functionality AFTER delegating to Decorated object method
+		return condCost + cost;
 	}
 
 	@Override
-	public void someAdditionalFunctionality() {
-		//Nothing for SOY
+	public double calculateCondimentCost() {
+		// Or do some complex calculation to find cost
+		return .15;
 	}
+
+	
 
 }

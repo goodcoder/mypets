@@ -5,6 +5,8 @@ public class Q {
 		  boolean valueSet = false;
 
 		  synchronized int get()  {
+			  
+			// Important Note: I learned wait() call should actually be after notify() call. So if I move notify() from line 30 before while loop line 9 still program works great and is more understandable. I tested it.
 		    while(!valueSet)
 		      try {
 		    	System.out.println(" Pre Wait in get("+ n+")");
@@ -32,10 +34,13 @@ public class Q {
 		      //Note : Once consumer get monitor I see control first go back to where it left last time i.e line just AFTER wait() in put() 
 		      //once all 3 sop and then again go back to start of while (naturally , its a loop...
 		      // So point to remember, AFTER notify() a call to wait() is needed!! so Heading should be notify-wait mechanism not wait-notify !!
+		   // Important Note: I learned wait() call should actually be after notify() call. So if I move notify() from line 30 before while loop line 9 still program works great and is more understandable. I tested it.
 		      return n;
 		  }
 
 		  synchronized void put(int nt) {
+			  
+	// Important Note: I learned wait() call should actually be after notify() call. So if I move notify() from line 63 before while loop still program works great and is more understandable. I tested it.
 		    while(valueSet)
 		      try {
 		    	  
@@ -65,6 +70,7 @@ public class Q {
 		      //Note : Once Producer get monitor I see control first go back to where it left last time i.e line just AFTER wait() in put() 
 		      //once all 3 sop and then again go back to start of while (naturally , its a loop...
 		      // So point to remember, AFTER notify() a call to wait() is needed!! so Heading should be notify-wait mechanism not wait-notify !!
+		  	// Important Note: I learned wait() call should actually be after notify() call. So if I move notify() from line 63 before while loop line 40 still program works great and is more understandable. I tested it.
 		  }
 
 }

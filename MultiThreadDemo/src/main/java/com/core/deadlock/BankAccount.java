@@ -1,5 +1,8 @@
 package com.core.deadlock;
-public class BankAccount {
+
+/*Ref:  SOF[13326861] or TU[dead-or-lock]*/
+
+public class BankAccount implements Comparable<BankAccount>{
     double balance;
     int id;
      
@@ -10,42 +13,23 @@ public class BankAccount {
      
     void withdraw(double amount) {
         // Wait to simulate io like database access ...
-        try {Thread.sleep(10l);} catch (InterruptedException e) {}
+        //try {Thread.sleep(10l);} catch (InterruptedException e) {}
         balance -= amount;
-        System.out.println(" Out :"+ amount+ " Balance :"+balance);
+        System.out.println(" Withdraw :"+ amount+ " Balance :"+balance);
     }
      
     void deposit(double amount) {
         // Wait to simulate io like database access ...
-        try {Thread.sleep(10l);} catch (InterruptedException e) {}
+       // try {Thread.sleep(110);} catch (InterruptedException e) {}
         balance += amount;
-        System.out.println(" In :"+ amount + " Balance :"+balance);
+        System.out.println(" Deposit :"+ amount + " Balance :"+balance);
     }
-     
-    static void transfer(BankAccount from, BankAccount to, double amount) {
-        synchronized(from) {
-            from.withdraw(amount);
-            synchronized(to) {
-                to.deposit(amount);
-            }
-        }
-    }
-     
-    public static void main(String[] args) {
-        final BankAccount fooAccount = new BankAccount(1, 100d);
-        final BankAccount barAccount = new BankAccount(2, 100d);
-         
-        new Thread() {
-            public void run() {
-                BankAccount.transfer(fooAccount, barAccount, 10d);
-            }
-        }.start();
-         
-        new Thread() {
-            public void run() {
-                BankAccount.transfer(barAccount, fooAccount, 10d);
-            }
-        }.start();
-         
-    }
+    
+    @Override
+	public int compareTo(BankAccount account) {
+		if(this.id > account.id) return 1;
+		else if(this.id < account.id) return -1;
+		else return 0;
+	}
+
 }
